@@ -76,5 +76,6 @@ input[type="radio"] {display: none;}
 #shoot {border: 1px solid gray; width: 320px; margin: 0 auto;}
 .link {color: green; text-decoration: none}
 .red {color: red; text-decoration: none}
-#comment {background-color: purple; width: 300px; text-align: center;}
-.underline {background-color: yellow; color: black;}
+#comment {background-color: purple; width: 300px; text-align: center;  border: 3px solid black; margin: 0 auto; margin-top: 20px;}
+.underline {background-color: yellow; color: black; border: 1px solid black;}
+#gal {border: 1px solid black;}

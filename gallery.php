@@ -19,25 +19,25 @@
 		$exec->bindValue(2, $nbpicperpage, PDO::PARAM_INT);
 		$exec->execute();
 		$result = $exec->fetchAll();
-
-		for ($i = 0; $i < $result[$i]; $i++) {
+		foreach ($result as $k => $val) {	
 			echo "<div id=\"gal\">
-			<img src=\"pictures/".$result[$i]['path']."\" />
-			<p>Like : ".$result[$i]['likes']."</p>";
+			<img src=\"pictures/".$val['path']."\" />
+			<p>Like : ".$val['likes']."</p>";
 			if (isset($_SESSION['id']))
-				echo "<div id=\"like\"><a class=\"link\"href=\"like.php?id=".$result[$i]['path']."&p=".$cpage."\"> Like </a> <a class=\"red\" href=\"dislike.php?id=".$result[$i]['path']."&p=".$cpage."\"> Dislike </a></div>";
-			$exec = $db->prepare("SELECT comment, id_user from comment where id_photo = ? ORDER BY id DESC");
-			$exec->execute(array($result[$i]['id']));
+				echo "<div id=\"like\"><a class=\"link\"href=\"like.php?id=".$val['path']."&p=".$cpage."\"> Like </a> <a class=\"red\" href=\"dislike.php?id=".$val['path']."&p=".$cpage."\"> Dislike </a><a href=\"comment.php?id=".$val['path']."&p=".$cpage."\"> <p> Ajouter un commentaire </p></a></div>";
+			$exec = $db->prepare("SELECT comment, id_user from comment where id_photo = ? ORDER BY id
+				");
+
+			$exec->execute(array($val['id']));
 			$final = $exec->fetchAll();
 			foreach ($final as $key => $value) {
 				echo "<div id=\"comment\"> ".$value['comment'];
 				$exec = $db->prepare("SELECT login from user where id = ?");
 				$exec->execute(array($value['id_user']));
 				$ndc = $exec->fetch();
-				echo "<span class= \"underline\">By ".$ndc['login']."</span></div>";
+				echo "<p class= \"underline\">By ".$ndc['login']."</p></div>";
 			}
 			echo "</div>";
-
 		}
 		echo "<br/>";
 		for ($i = 1; $i <= $nbpage; $i++) {
